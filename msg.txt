@@ -1,0 +1,25 @@
+Servidor to Servidor
+# 1 = Solicitação de conexão (int(IP)) = (char(player))
+# 2 = (char(player)) morreu e (char(player)) avançou um nivel
+
+Servidor to jogadores
+# 1 = Bem vindo a PIR Land player (char(player))
+# 2 = Rank dos jogadores (Lista)
+# 3 = (char(player)) ganhou a luta, (char(player)) morreu.
+# 4 = Escolha uma classe (char(player)): op 1, op 2, op 3,...
+# 5 = Ações luta (Carregar/Block/Golpe)
+
+Client to Servidor
+# 1 = Class player
+
+Client to jogador
+# 1 = Lista de ações do dia, num ações disponiveis, moedas
+# 2 = Ações finalizadas, indo a arena.
+# 3 = Aguardando oponente digno...
+# 4 = Perfil player
+# 5 = Entrando no ferreiro...\nfala Rafael o ferreiro\nCatalogo de equipamentos
+# 6 = Visita ao mago...\nfala PZ o mago\nCatalogo de magias
+# 7 = Passada ao Lojista...\nfala 2K o Burgues\nCatalogo de itens
+# 8 = Buscando no mural...\nfala WK mestre da guilda\nCatalogo de missao
+# 9 = Clube da luta...\nRegras: Não há regras, lute até a morte\nPremio 2x suas moedas
+

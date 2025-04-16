@@ -1,0 +1,22 @@
+# Prólogo classe (2 à 6)
+Escolha uma classe
+Classes a selecionar: 0->Mago / 1->Arqueiro / 2->Lutador
+Mago----Arqueiro----Lutador
+VIDA = 3/ VIDA = 4/ VIDA = 5/
+MANA = 2/ FLECHA = 1/ KI = 0/
+
+# Dialogo inicio turno da vila (9 à 10)
+Ferreiro->1 / Loja de Magia->2 / Lojista->3 / Black Arena->4 / Checar status->5
+Guilda-> 6  / 
+
+# Ferreiro Rafael (12 à 21)
+Bem vindo a minha forja viajante!
+Aqui você encontra as melhores armaduras(+vida) e armas(+dano) da região.
+Catalogo: Tipo     /   Atributo    /    Custo
+1       Armadura 1      +1 Vida         1 Dinheiro
+2       Armadura 2      +2 Vida         2 Dinheiros
+3       Armadura 3      +3 Vida         3 Dinheiros
+4       Arma 1          +1 dano         1 Dinheiro
+5       Arma 2          +2 dano         2 Dinheiro
+6       Arma 3          +3 dano         3 Dinheiro
+0       Voltar ao centro da vila
