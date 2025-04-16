@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-import os
+from functions import *
 
 @dataclass
 class player:
@@ -12,6 +11,7 @@ class player:
     nivel: int  # dias sobrevividos
     moedas: int # bolsa de dinheiro
     dano: int # dano inicial padrao
+    pot: int
 
 
 # Cadastro player
@@ -24,8 +24,9 @@ def cadastrar_jogador() -> player:
         flag_mago_clarividencia=False,
         flag_mago_skill=False,
         nivel=1,
-        moedas=0,
-        dano=1
+        moedas=1,
+        dano=1,
+        pot=0
     )
 
 # Nome
