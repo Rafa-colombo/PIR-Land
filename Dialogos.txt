@@ -1,11 +1,35 @@
-# Prólogo classe (2 à 6)
-Escolha uma classe
-Classes a selecionar: 0->Mago / 1->Arqueiro / 2->Lutador
-Mago----Arqueiro----Lutador
-VIDA = 3/ VIDA = 4/ VIDA = 5/
-MANA = 2/ FLECHA = 1/ KI = 0/
+# Info do jogo
+Bem vindo jogador, segue algumas informações do jogo:
 
-# Dialogo inicio turno da vila (9 à 10)
+Você, audaz aventureiro, acaba de pisar na lendária cidade de PIR! Uma metrópole de esplendor inigualável, onde a glória e a fama se entrelaçam. Suas ruas ecoam com os ecos de antigas conquistas, e cada esquina sussurra segredos de feitos heroicos e riquezas imensuráveis. Aqui, o destino dos mais corajosos é forjado nas labaredas da ambição e do poder. PIR, com sua imponente arquitetura de mármore e ferro, não é apenas uma cidade, mas um império de oportunidades, onde o ouro reluz em cada mercado e as lendas são escritas a cada amanhecer. E é claro, não poderia faltar sua arena de batalha, o palco onde guerreiros de todo o mundo vêm testar sua força, coragem e honra. Um lugar onde sangue, suor e glória se misturam em um espetáculo de tirar o fôlego. Prepare-se, aventureiro, pois em PIR, o destino é tão grandioso quanto a própria cidade!
+
+inicia o jogo com 4 turnos diarios,onde, cada passagem, reduz em um seu contador de turno.Os turnos dos dias podem ser gastos com:
+
+Ferreiro = Compra de equipamentos para aumentar vida e/ou dano
+Loja do Mago = Possibildiade de dar upgrade em uma skill relacionada a sua classe ou adquerir clarividencia(Possibilita ver status do adversario PVP)
+Black Market = Participar em lutas clandestinas para dobrar suas moedas ou comprar poções proibidas de heal ou carga para as lutas PVP
+Guilda = Para obter moedas com até 3 missões diárias
+Ao finalizar os turnos do dia você sera transportado automaticamente para arena PVP.
+As batalhas realizadas na arena são brincadeira de pistoleiro infantil "carrega, defende, atira", onde:
+
+Carrega = Gera uma carga de ataque relacionado a sua classe
+Defende = Bloqueia parcialmente dano de um possivel ataque (se utilizado no carregamento inimigo não gera nada)
+Ataque = Gasta uma carga de ataque e realiza ação de ataque (dano pode ser alterado ao passar dos turnos dos dias)
+Vence a partida jogador que permanecer vivo (vida > 0) no final.
+
+Para planos futuros, serão realizados atualizações para passagem de dias após vitorias, aumentando nivel do jogador e criação de placar de jogadores. Para seguir para o jogo entre com 0...
+
+
+
+
+# Prólogo classe 
+Bem vindo a PIR Land player, escolha uma classe.
+Classes a selecionar: 
+0->Mago    / 1->Arqueiro / 2->Lutador /
+VIDA = 3  / VIDA = 4    / VIDA = 5   /
+MANA = 2 / FLECHA = 1  / KI = 0     /
+
+# Turno da vila
 Ferreiro->1 / Loja de Magia->2 / Black Market->3 / Guilda-> 4 / Checar status->5
 -> 6  / 
 
@@ -13,13 +37,13 @@ Ferreiro->1 / Loja de Magia->2 / Black Market->3 / Guilda-> 4 / Checar status->5
 Bem vindo a minha forja viajante!
 Aqui você encontra as melhores armaduras(+vida) e armas(+dano) da região.
 Catalogo: Tipo     /   Atributo    /    Custo
-1       Armadura 1      +1 Vida         1 Dinheiro
-2       Armadura 2      +2 Vida         2 Dinheiros
-3       Armadura 3      +3 Vida         3 Dinheiros
-4       Arma 1          +1 dano         1 Dinheiro
-5       Arma 2          +2 dano         2 Dinheiro
-6       Arma 3          +3 dano         3 Dinheiro
-0       Voltar ao centro da vila
+1   Cota de Malha       +1 Vida         1 Dinheiro
+2   Peitoral de Aço     +2 Vida         2 Dinheiros
+3   Armadura Imperial   +3 Vida         3 Dinheiros
+4   Espada Curta        +1 dano         1 Dinheiro
+5   Espada Longa        +2 dano         2 Dinheiro
+6   Machado de Batalha  +3 dano         3 Dinheiro
+0   Voltar ao centro da vila
 
 # Mago Pizzoni
 Bem vindo a minha loja garfanhoto!
@@ -28,8 +52,9 @@ Catalogo: Tipo     /   Atributo    /    Custo
 
 # Mercadinho do 2k
 Te liga perdido!
-Se quiser lutar no club da luta(Perca  de vida por 2x moedas)->0
-Comprar poção de cura(custo: 1 moeda; Cura 1 de vida na batalha)->1
+Se quiser lutar no club da luta(Perca 2 de vida por 2x moedas)->1
+Comprar poção de cura(custo: 2 moeda; Cura 1 de vida na batalha)->2
+Voltar ao centro da vila->0
 
 # Mestre da Guilda Gabriel
 Bem vindo, você está no hall da Wenningkamp!
