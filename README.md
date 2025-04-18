@@ -13,7 +13,7 @@ Prepare-se, aventureiro, pois em PIR, o destino é tão grandioso quanto a próp
 inicia o jogo com 4 turnos diarios,onde, cada passagem, reduz em um seu contador de turno.Os turnos dos dias podem ser gastos com:
 - Ferreiro = Compra de equipamentos para aumentar vida e/ou dano
 - Loja do Mago = Possibildiade de dar upgrade em uma skill relacionada a sua classe ou adquerir clarividencia(Possibilita ver status do adversario PVP)
-- Black Market = Participar em lutas clandestinas para dobrar suas moedas ou comprar poções proibidas de heal ou carga para as lutas PVP
+- Black Market = Participar em lutas clandestinas para dobrar suas moedas, comprar poções proibidas de heal ou carga para as lutas PVP
 - Guilda = Para obter moedas com até 3 missões diárias  
 
 Ao finalizar os turnos do dia você sera transportado automaticamente para arena PVP.  

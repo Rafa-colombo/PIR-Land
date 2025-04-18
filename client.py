@@ -12,9 +12,14 @@ while Dia >= 0:
         break #implementa goto arena
     elif Dia == 4: print(f"Player {jogador.nome} você chegou ao centro da vila de PIR\nVoce possui {Dia} ações")
     else: print(f"Player {jogador.nome} você voltou ao centro da vila de PIR\nVoce possui {Dia} ações")
-    prologo(2)
+    falas(2)
     acao_dia = int(input("Escolha sua jornada:  ")) 
     match acao_dia:
+        case 0:
+            os.system('cls')
+            falas(0)
+            input("Pressione ENTER para continuar...")
+            os.system('cls')
         case 1:
             os.system('cls')
             ferreiro(jogador)
