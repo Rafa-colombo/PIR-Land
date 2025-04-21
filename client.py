@@ -5,13 +5,14 @@ jogador = cadastrar_jogador()
 os.system('cls')
 
 # Vila
+status(jogador)
 Dia = 4
 while Dia >= 0:
     if Dia == 0: 
         print("Não possui mais turnos\nIndo a arena...")  
-        break #implementa goto arena
+        break # PVP(jogador1, jogador2)
     elif Dia == 4: print(f"Player {jogador.nome} você chegou ao centro da vila de PIR\nVoce possui {Dia} ações")
-    else: print(f"Player {jogador.nome} você voltou ao centro da vila de PIR\nVoce possui {Dia} ações")
+    else: print(f"Player {jogador.nome} você voltou ao centro da vila de PIR\nVocê possui {Dia} ações")
     falas(2)
     acao_dia = int(input("Escolha sua jornada:  ")) 
     match acao_dia:

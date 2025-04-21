@@ -88,9 +88,8 @@ def cadastrar_jogador() -> player:
 # Status player
 def status(player):
     jogador = player
-    print(f"---VIDA = {jogador.classe.vida} / ARMAMENTO = {jogador.classe.municao} / DINHEIROS {jogador.moedas}---")
-    print(f"+CLASSE = {jogador.classe.nome}+ Dano de ataque = {jogador.dano}\nINV:Pot {jogador.pot}\n{jogador.inv}\n")
-    input("\nPressione ENTER para continuar...")
+    print(f"STATUS {jogador.nome}\nVida = {jogador.classe.vida} / Armamento = {jogador.classe.municao} / Moedas {jogador.moedas}")
+    print(f"CLASSE = {jogador.classe.nome} / Dano de ataque = {jogador.dano}\nINV:Pot {jogador.pot} + {jogador.inv}\n------------------")
 
 
 
