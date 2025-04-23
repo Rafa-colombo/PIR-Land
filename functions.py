@@ -1,4 +1,7 @@
 import os
+import socket
+import pickle
+import importlib
 from dataclasses import dataclass
 from typing import List
 
@@ -159,7 +162,8 @@ def falas(ind):
     if index == 8: ler_dialogo(57,60) # BM catálogo
     if index == 9: ler_dialogo(62,68) # Guilda full
     if index == 10: ler_dialogo(64,68) # Guilda catálogo
-    if index == 11: ler_dialogo(70,71) # Entrada arena PVP
+    if index == 11: return ler_dialogo(70,71) # Entrada arena PVP
+ 
     
 
 
@@ -314,61 +318,81 @@ def B_Market(jogador):
 
 def PVP(jogador1, jogador2):
     # Inic
-    falas(11)
-    # fazer sessao de espera por ambos jogadores
+    msg = falas(11)
+    jogadores = [jogador1, jogador2]
+    if msg:
+        for linha in msg:
+            for jogador in jogadores:
+                jogador.socket.send((linha + "\n").encode())
+    else: print("Nenhuma mensagem retornada.")
     batalha = True
     while batalha:
 
-        print("\n--- Turno do Jogador 1 ---")
-        acao1 = int(input("Jogador 1 - Digite sua ação (0 = Defender, 1 = Atacar, 2 = Carregar): "))
-        print("\n--- Turno do Jogador 2 ---")
-        acao2 = int(input("Jogador 2 - Digite sua ação (0 = Defender, 1 = Atacar, 2 = Carregar): "))
+        # Recebendo ações dos jogadores
+        jogador1.socket.send(b"\nSua vez! Digite sua ação (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+        acao1 = int(jogador1.socket.recv(1024).decode())
+
+        jogador2.socket.send(b"\nSua vez! Digite sua ação (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+        acao2 = int(jogador2.socket.recv(1024).decode())
+
+        mensagens = []
 
         # Jogador 1 
         if acao1 == 2:      # Carregamento jogador 1
             jogador1.municao += 1
-            print("Jogador 1 carregou a arma!")
+            mensagens.append("Jogador 1 carregou a arma!")
         elif acao1 == 1:        # Ataque jogador 1
             if jogador1.municao > 0:
                 jogador1.municao -= 1
                 if acao2 == 0:      # Defesa jogador 2
                     dano = jogador1.dano * jogador2.block
                     jogador2.classe.vida -= dano
-                    print(f"Jogador 2 defendeu! Dano reduzido para {dano:.1f}")
+                    mensagens.append(f"Jogador 2 defendeu! Dano reduzido para {dano:.1f}")
                 else:
                     jogador2.classe.vida -= jogador1.dano
-                    print(f"Jogador 2 foi atingido! Sofreu {jogador1.dano} de dano.")
+                    mensagens.append(f"Jogador 2 foi atingido! Sofreu {jogador1.dano} de dano.")
             else:
-                print("Jogador 1 tentou atacar, mas está sem munição!")
+                mensagens.append("Jogador 1 tentou atacar, mas está sem munição!")
         else:
-            print("Ação não suportada, perdeu a vez jogador 1!")
+            mensagens.append("Ação inválida. Jogador 1 perdeu a vez!")
 
         # Jogador 2 
         if acao2 == 2:         # Carregamento jogador 2
             jogador2.municao += 1
-            print("Jogador 2 carregou a arma!")
+            mensagens.append("Jogador 2 carregou a arma!")
         elif acao2 == 1:        # Ataque jogador 2
             if jogador2.municao > 0:
                 jogador2.municao -= 1
                 if acao1 == 0:      # Defesa jogador 1
                     dano = jogador2.dano * jogador1.block
                     jogador1.classe.vida -= dano
-                    print(f"Jogador 1 defendeu! Dano reduzido para {dano:.1f}")
+                    mensagens.append(f"Jogador 1 defendeu! Dano reduzido para {dano:.1f}")
                 else:
                     jogador1.classe.vida -= jogador2.dano
-                    print(f"Jogador 1 foi atingido! Sofreu {jogador2.dano} de dano.")
+                    mensagens.append(f"Jogador 1 foi atingido! Sofreu {jogador2.dano} de dano.")
             else:
-                print("Jogador 2 tentou atacar, mas está sem munição!")
+                mensagens.append("Jogador 2 tentou atacar, mas está sem munição!")
         else:
-            print("Ação não suportada, perdeu a vez jogador 2!")
+            mensagens.append("Ação inválida. Jogador 2 perdeu a vez!")
+
+        # Enviar mensagens para ambos os jogadores
+        for msg in mensagens:
+            jogador1.socket.send((msg + "\n").encode())
+            jogador2.socket.send((msg + "\n").encode())
 
         # Fim da batalha
         if jogador1.classe.vida <= 0 or jogador2.classe.vida <= 0:
-            print("\n--- Fim da Batalha ---")
+            print("Mensagem do servidor:\n--- Fim da Batalha ---")
+            resultado = "\n--- Fim da Batalha ---\n"
             if jogador1.classe.vida <= 0 and jogador2.classe.vida <= 0:
                 print("Empate! Ambos caíram ao mesmo tempo.")
+                resultado += "Empate! Ambos caíram ao mesmo tempo."
             elif jogador1.classe.vida <= 0:
                 print("Jogador 2 venceu!")
+                resultado += "Jogador 2 venceu!"
             else:
                 print("Jogador 1 venceu!")
+                resultado += "Jogador 1 venceu!"
+            jogador1.socket.send(resultado.encode())
+            jogador2.socket.send(resultado.encode())
             batalha = False

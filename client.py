@@ -1,16 +1,28 @@
 from functions import *
 
-
+# Cadástro
 jogador = cadastrar_jogador()
 os.system('cls')
+
 
 # Vila
 status(jogador)
 Dia = 4
 while Dia >= 0:
-    if Dia == 0: 
-        print("Não possui mais turnos\nIndo a arena...")  
-        break # PVP(jogador1, jogador2)
+    if Dia == 0: # conexão no servidor
+        print("Não possui mais turnos\nIndo a arena...") 
+
+        player_mod = importlib.import_module("player")
+        Player = getattr(player_mod, "Player")
+        jogador = Player("NomeDoJogador")  # ou carregue o estado real dele
+
+        jogador.socket = None  # impede erro de pickle
+        socket_jogador = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket_jogador.connect(("localhost", 50000))
+        socket_jogador.send(pickle.dumps(jogador))
+
+        break  # Sai do loop após enviar jogador
+
     elif Dia == 4: print(f"Player {jogador.nome} você chegou ao centro da vila de PIR\nVoce possui {Dia} ações")
     else: print(f"Player {jogador.nome} você voltou ao centro da vila de PIR\nVocê possui {Dia} ações")
     falas(2)
