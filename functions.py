@@ -1,7 +1,6 @@
 import os
 import socket
 import pickle
-import importlib
 from dataclasses import dataclass
 from typing import List
 
@@ -162,9 +161,7 @@ def falas(ind):
     if index == 8: ler_dialogo(57,60) # BM catálogo
     if index == 9: ler_dialogo(62,68) # Guilda full
     if index == 10: ler_dialogo(64,68) # Guilda catálogo
-    if index == 11: return ler_dialogo(70,71) # Entrada arena PVP
  
-    
 
 
 # Loja ferreiro
@@ -234,11 +231,11 @@ def mago(jogador):
 
 #  Guilda
 def Guilda(jogador):
-    print("Você escolheu 3, Guilda")
+    print("Você escolheu 4, Guilda")
     rodando = 0
     while True:
-        if rodando == 0: falas(7) # Guilda completo
-        else: falas(8) # Guilda introdução
+        if rodando == 0: falas(9) # Guilda completo
+        else: falas(10) # Guilda introdução
         rodando = rodando + 1
         escolha = int(input(f"Escolha: "))
         if escolha == 0: 
@@ -283,8 +280,8 @@ def B_Market(jogador):
     print("Você escolheu 3, Black Market")
     rodando = 0
     while True:
-        if rodando == 0: falas(9) # B_market completo
-        else: falas(10) # B_market catalogo
+        if rodando == 0: falas(7) # B_market completo
+        else: falas(8) # B_market catalogo
         rodando = rodando + 1
         compra = int(input(f"Escolha (possui {jogador.moedas} de dinheiro): "))
         if compra == 0: 
@@ -304,8 +301,8 @@ def B_Market(jogador):
             input("\nPressione ENTER para continuar...")
             os.system('cls')
         elif compra == 3:
-            print(f"\nVocê comprou munição (+2) para {jogador.classe}\nMunição: {jogador.municao}")
-            jogador.municao += 2
+            print(f"\nVocê comprou munição (+2) para {jogador.classe}\nMunição: {jogador.classe.municao}")
+            jogador.classe.municao += 2
             input("\nPressione ENTER para continuar...")
             os.system('cls')
         else:
@@ -318,62 +315,67 @@ def B_Market(jogador):
 
 def PVP(jogador1, jogador2):
     # Inic
-    msg = falas(11)
+    msg = "Parabéns e bem vindo a grande arena de PIR jogador!"
     jogadores = [jogador1, jogador2]
-    if msg:
-        for linha in msg:
-            for jogador in jogadores:
-                jogador.socket.send((linha + "\n").encode())
-    else: print("Nenhuma mensagem retornada.")
+    jogador1.socket.send(msg.encode('utf-8'))
+    jogador2.socket.send(msg.encode('utf-8'))
     batalha = True
     while batalha:
+        # status
+        status1 = f"--- STATUS ---Vida: {jogador1.classe.vida} Munição: {jogador1.classe.municao} Pot({jogador1.pot})\n"
+        status2 = f"--- STATUS ---Vida: {jogador2.classe.vida} Munição: {jogador2.classe.municao} Pot({jogador2.pot})\n"
+
+        jogador1.socket.send(status1.encode('utf-8'))
+        jogador2.socket.send(status2.encode('utf-8'))
+
+        # criar if para habilidade clarividencia
 
         # Recebendo ações dos jogadores
-        jogador1.socket.send(b"\nSua vez! Digite sua ação (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+        jogador1.socket.send(b"Sua vez! Digite sua jogada: ")
         acao1 = int(jogador1.socket.recv(1024).decode())
 
-        jogador2.socket.send(b"\nSua vez! Digite sua ação (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+        jogador2.socket.send(b"Sua vez! Digite sua jogada: ")
         acao2 = int(jogador2.socket.recv(1024).decode())
 
         mensagens = []
 
         # Jogador 1 
         if acao1 == 2:      # Carregamento jogador 1
-            jogador1.municao += 1
-            mensagens.append("Jogador 1 carregou a arma!")
+            jogador1.classe.municao += 1
+            mensagens.append(f"Jogador {jogador1.nome} carregou a arma!")
         elif acao1 == 1:        # Ataque jogador 1
-            if jogador1.municao > 0:
-                jogador1.municao -= 1
+            if jogador1.classe.municao > 0:
+                jogador1.classe.municao -= 1
                 if acao2 == 0:      # Defesa jogador 2
-                    dano = jogador1.dano * jogador2.block
+                    dano = jogador1.dano * jogador2.classe.block
                     jogador2.classe.vida -= dano
-                    mensagens.append(f"Jogador 2 defendeu! Dano reduzido para {dano:.1f}")
+                    mensagens.append(f"Jogador {jogador2.nome} defendeu! Dano reduzido para {dano:.1f}")
                 else:
                     jogador2.classe.vida -= jogador1.dano
-                    mensagens.append(f"Jogador 2 foi atingido! Sofreu {jogador1.dano} de dano.")
+                    mensagens.append(f"Jogador {jogador2.nome} foi atingido! Sofreu {jogador1.dano} de dano.")
             else:
-                mensagens.append("Jogador 1 tentou atacar, mas está sem munição!")
+                mensagens.append(f"Jogador {jogador1.nome} tentou atacar, mas está sem munição!")
         else:
-            mensagens.append("Ação inválida. Jogador 1 perdeu a vez!")
+            mensagens.append(f"Ação inválida. Jogador {jogador1.nome} perdeu a vez!")
 
         # Jogador 2 
         if acao2 == 2:         # Carregamento jogador 2
-            jogador2.municao += 1
-            mensagens.append("Jogador 2 carregou a arma!")
+            jogador2.classe.municao += 1
+            mensagens.append(f"Jogador {jogador2.nome} carregou a arma!")
         elif acao2 == 1:        # Ataque jogador 2
-            if jogador2.municao > 0:
-                jogador2.municao -= 1
+            if jogador2.classe.municao > 0:
+                jogador2.classe.municao -= 1
                 if acao1 == 0:      # Defesa jogador 1
-                    dano = jogador2.dano * jogador1.block
+                    dano = jogador2.dano * jogador1.classe.block
                     jogador1.classe.vida -= dano
-                    mensagens.append(f"Jogador 1 defendeu! Dano reduzido para {dano:.1f}")
+                    mensagens.append(f"Jogador {jogador1.nome} defendeu! Dano reduzido para {dano:.1f}")
                 else:
                     jogador1.classe.vida -= jogador2.dano
-                    mensagens.append(f"Jogador 1 foi atingido! Sofreu {jogador2.dano} de dano.")
+                    mensagens.append(f"Jogador {jogador1.nome} foi atingido! Sofreu {jogador2.dano} de dano.")
             else:
-                mensagens.append("Jogador 2 tentou atacar, mas está sem munição!")
+                mensagens.append(f"Jogador {jogador2.nome} tentou atacar, mas está sem munição!")
         else:
-            mensagens.append("Ação inválida. Jogador 2 perdeu a vez!")
+            mensagens.append(f"Ação inválida. Jogador {jogador2.nome} perdeu a vez!")
 
         # Enviar mensagens para ambos os jogadores
         for msg in mensagens:
@@ -389,10 +391,10 @@ def PVP(jogador1, jogador2):
                 resultado += "Empate! Ambos caíram ao mesmo tempo."
             elif jogador1.classe.vida <= 0:
                 print("Jogador 2 venceu!")
-                resultado += "Jogador 2 venceu!"
+                resultado += f"Jogador {jogador2.nome} venceu!"
             else:
                 print("Jogador 1 venceu!")
-                resultado += "Jogador 1 venceu!"
+                resultado += f"Jogador {jogador1.nome} venceu!"
             jogador1.socket.send(resultado.encode())
             jogador2.socket.send(resultado.encode())
             batalha = False

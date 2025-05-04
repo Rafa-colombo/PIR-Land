@@ -10,18 +10,39 @@ status(jogador)
 Dia = 4
 while Dia >= 0:
     if Dia == 0: # conexão no servidor
-        print("Não possui mais turnos\nIndo a arena...") 
+        print("Não possui mais turnos\nIndo a arena...")
+        input("\nPressione ENTER para continuar jogador")
+        os.system('cls')
 
-        player_mod = importlib.import_module("player")
-        Player = getattr(player_mod, "Player")
-        jogador = Player("NomeDoJogador")  # ou carregue o estado real dele
-
+        # Conectar ao servidor
+        socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket_cliente.connect(('localhost', 50000))  # ou IP do servidor
         jogador.socket = None  # impede erro de pickle
-        socket_jogador = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_jogador.connect(("localhost", 50000))
-        socket_jogador.send(pickle.dumps(jogador))
 
-        break  # Sai do loop após enviar jogador
+        # Enviar o jogador serializado
+        dados = pickle.dumps(jogador)
+        socket_cliente.send(dados)
+
+        # Associar o socket local ao jogador após o envio
+        jogador.socket = socket_cliente
+
+        print("Conectado ao servidor. Aguardando mensagens...")
+
+        while True:
+            msg_recebida = socket_cliente.recv(4096)  # Buffer maior para mensagem
+            if not msg_recebida: 
+                print("Servidor desconectou.")
+                break
+
+            msg_txt = msg_recebida.decode('utf-8')
+            print("Mensagem do servidor:", msg_txt)
+            if "Sua vez! Digite sua jogada" in msg_txt:
+                acao = input("Digite sua jogada (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+                socket_cliente.send(acao.encode('utf-8')) # Envia a ação de volta para o servidor
+
+        socket_cliente.close()
+        break
+        
 
     elif Dia == 4: print(f"Player {jogador.nome} você chegou ao centro da vila de PIR\nVoce possui {Dia} ações")
     else: print(f"Player {jogador.nome} você voltou ao centro da vila de PIR\nVocê possui {Dia} ações")
@@ -55,7 +76,8 @@ while Dia >= 0:
         case _:
             os.system('cls')
             print("Opção inválida")
-            break
+            Dia = 0
+            
 
 
 
