@@ -37,8 +37,6 @@ try:
 
 
         # PVP
-        msg_arena = "Aguardando jogador 2"
-        jogadores[0].socket.send(msg_arena.encode('utf-8'))
         if (len(jogadores) < 2):
             msg_arena = "Procurando oponente digno..." #  Aguardando jogador 2
             jogadores[0].socket.send(msg_arena.encode('utf-8'))

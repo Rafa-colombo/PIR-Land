@@ -33,11 +33,12 @@ while Dia >= 0:
             if not msg_recebida: 
                 print("Servidor desconectou.")
                 break
-
             msg_txt = msg_recebida.decode('utf-8')
             print("Mensagem do servidor:", msg_txt)
             if "Sua vez! Digite sua jogada" in msg_txt:
                 acao = input("Digite sua jogada (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+                os.system('cls')
+                print("Aguardando jogada...")
                 socket_cliente.send(acao.encode('utf-8')) # Envia a ação de volta para o servidor
 
         socket_cliente.close()

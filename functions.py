@@ -90,7 +90,7 @@ def cadastrar_jogador() -> player:
 # Status player
 def status(player):
     jogador = player
-    print(f"STATUS {jogador.nome}\nVida = {jogador.classe.vida} / Armamento = {jogador.classe.municao} / Moedas {jogador.moedas}")
+    print(f"--- STATUS -> {jogador.nome}\nVida = {jogador.classe.vida} / Armamento = {jogador.classe.municao} / Moedas {jogador.moedas}")
     print(f"CLASSE = {jogador.classe.nome} / Dano de ataque = {jogador.dano}\nINV:Pot {jogador.pot} + {jogador.inv}\n------------------")
 
 
@@ -322,8 +322,8 @@ def PVP(jogador1, jogador2):
     batalha = True
     while batalha:
         # status
-        status1 = f"--- STATUS ---Vida: {jogador1.classe.vida} Munição: {jogador1.classe.municao} Pot({jogador1.pot})\n"
-        status2 = f"--- STATUS ---Vida: {jogador2.classe.vida} Munição: {jogador2.classe.municao} Pot({jogador2.pot})\n"
+        status1 = f"--- STATUS ->Vida: {jogador1.classe.vida} Munição: {jogador1.classe.municao} Pot({jogador1.pot})\n"
+        status2 = f"--- STATUS ->Vida: {jogador2.classe.vida} Munição: {jogador2.classe.municao} Pot({jogador2.pot})\n"
 
         jogador1.socket.send(status1.encode('utf-8'))
         jogador2.socket.send(status2.encode('utf-8'))
