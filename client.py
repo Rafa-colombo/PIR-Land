@@ -16,7 +16,7 @@ while Dia >= 0:
 
         # Conectar ao servidor
         socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_cliente.connect(('localhost', 50000))  # ou IP do servidor
+        socket_cliente.connect(('192.168.1.105', 50000))  # localhost ou IP do servidor (192.168.1.105)
         jogador.socket = None  # impede erro de pickle
 
         # Enviar o jogador serializado
@@ -35,8 +35,8 @@ while Dia >= 0:
                 break
             msg_txt = msg_recebida.decode('utf-8')
             print("Mensagem do servidor:", msg_txt)
-            if "Sua vez! Digite sua jogada" in msg_txt:
-                acao = input("Digite sua jogada (0 = Defender, 1 = Atacar, 2 = Carregar): ")
+            if "Sua vez!" in msg_txt:
+                acao = input("Digite sua jogada (0 = Defender, 1 = Atacar, 2 = Carregar, 4 = Cura): ")
                 os.system('cls')
                 print("Aguardando jogada...")
                 socket_cliente.send(acao.encode('utf-8')) # Envia a ação de volta para o servidor

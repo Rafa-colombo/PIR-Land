@@ -1,5 +1,7 @@
 from functions import *
 
+os.system('cls')
+
 # criação servidor
 socket_conexao = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 endereco = ('',50000)

@@ -16,16 +16,16 @@ class item:
 class itens:
     # Armaduras
     Armadura_1 = item(ID=0, nome='Cota de Malha', valor=1, modificador=1)
-    Armadura_2 = item(ID=1, nome='Peitoral de Aço', valor=2, modificador=2)
-    Armadura_3 = item(ID=2, nome='Armadura Imperial', valor=3, modificador=3)
+    Armadura_2 = item(ID=1, nome='Capacete de Aço', valor=2, modificador=2)
+    Armadura_3 = item(ID=2, nome='Peitoral Daedra', valor=3, modificador=3)
     
     # Armas
-    Arma_1 = item(ID=3, nome='Espada Curta', valor=2, modificador=2)
-    Arma_2 = item(ID=4, nome='Espada Longa', valor=3, modificador=3)
+    Arma_1 = item(ID=3, nome='Adaga de Ferro', valor=2, modificador=2)
+    Arma_2 = item(ID=4, nome='Anel da Destruição', valor=3, modificador=3)
     Arma_3 = item(ID=5, nome='Machado de Batalha', valor=4, modificador=4)
     
     # Poções
-    Pocao_Vida = item(ID=6, nome='Poção de Vida', valor=2, modificador=1)
+    Pocao_Vida = item(ID=6, nome='Poção de Vida', valor=2, modificador=5)
 
 @dataclass
 class classe:
@@ -164,17 +164,17 @@ def comprar_item(item, jogador, loja):
 # Ler trechos
 def falas(ind):
     index = ind
-    if index == 0: ler_dialogo(1,21) # Info
-    if index == 1: ler_dialogo(23,28) # Prólogo classe
-    if index == 2: ler_dialogo(30,32) # Turno da vila
-    if index == 3: ler_dialogo(34,44) # Ferreiro full
-    if index == 4: ler_dialogo(37,44) # Ferreiro catálogo
-    if index == 5: ler_dialogo(46,53) # Mago full
-    if index == 6: ler_dialogo(48,53) # Mago catálogo
-    if index == 7: ler_dialogo(55,60) # BM full
-    if index == 8: ler_dialogo(57,60) # BM catálogo
-    if index == 9: ler_dialogo(62,68) # Guilda full
-    if index == 10: ler_dialogo(64,68) # Guilda catálogo
+    if index == 0: ler_dialogo(1,22) # Info
+    if index == 1: ler_dialogo(24,29) # Prólogo classe
+    if index == 2: ler_dialogo(31,33) # Turno da vila
+    if index == 3: ler_dialogo(35,45) # Ferreiro full
+    if index == 4: ler_dialogo(38,45) # Ferreiro catálogo
+    if index == 5: ler_dialogo(47,54) # Mago full
+    if index == 6: ler_dialogo(49,54) # Mago catálogo
+    if index == 7: ler_dialogo(56,61) # BM full
+    if index == 8: ler_dialogo(58,61) # BM catálogo
+    if index == 9: ler_dialogo(63,69) # Guilda full
+    if index == 10: ler_dialogo(65,69) # Guilda catálogo
  
 
 
@@ -341,8 +341,8 @@ def PVP(jogador1, jogador2):
     batalha = True
     while batalha:
         # status
-        status1 = f"\n--- STATUS ->{jogador1.nome} Vida: {jogador1.classe.vida} Munição: {jogador1.classe.municao} Pot({jogador1.pot})"
-        status2 = f"\n--- STATUS ->{jogador2.nome} Vida: {jogador2.classe.vida} Munição: {jogador2.classe.municao} Pot({jogador2.pot})"
+        status1 = f"\n-STATUS->{jogador1.nome} [Vida: {jogador1.classe.vida} / Munição: {jogador1.classe.municao} / Dano: {jogador1.dano} / Pot({jogador1.pot})]"
+        status2 = f"\n-STATUS->{jogador2.nome} [Vida: {jogador2.classe.vida} / Munição: {jogador2.classe.municao} / Dano: {jogador2.dano} / Pot({jogador2.pot})]"
 
         jogador1.socket.send(status1.encode('utf-8'))
         jogador2.socket.send(status2.encode('utf-8'))
@@ -354,10 +354,10 @@ def PVP(jogador1, jogador2):
             jogador2.socket.send(status1.encode('utf-8'))
 
         # Recebendo ações dos jogadores
-        jogador1.socket.send(b"Sua vez! Digite sua jogada: ")
+        jogador1.socket.send(b"\nSua vez!!")
         acao1 = int(jogador1.socket.recv(1024).decode())
 
-        jogador2.socket.send(b"Sua vez! Digite sua jogada: ")
+        jogador2.socket.send(b"\nSua vez!!")
         acao2 = int(jogador2.socket.recv(1024).decode())
 
         mensagens = []
@@ -373,11 +373,22 @@ def PVP(jogador1, jogador2):
                     dano = jogador1.dano * jogador2.classe.block
                     jogador2.classe.vida -= dano
                     mensagens.append(f"Jogador {jogador2.nome} defendeu! Dano reduzido para {dano:.1f}")
+                elif acao2 == 4: # Ataque com cura jogador 2
+                    dano = jogador1.dano * 2
+                    jogador2.classe.vida -= dano
+                    mensagens.append(f"Jogador {jogador2.nome} tentou se curar, mas foi atingido em cheio! Sofreu {dano} de dano.")
                 else:
                     jogador2.classe.vida -= jogador1.dano
                     mensagens.append(f"Jogador {jogador2.nome} foi atingido! Sofreu {jogador1.dano} de dano.")
             else:
                 mensagens.append(f"Jogador {jogador1.nome} tentou atacar, mas está sem munição!")
+        elif acao1 == 4:  # Cura jogador 1
+            if jogador1.pot > 0:
+                jogador1.pot -= 1
+                jogador1.classe.vida += mapa_itens[7].modificador
+                mensagens.append(f"Jogador {jogador1.nome} usou uma poção e recuperou {mapa_itens[7].modificador} de vida!")
+            else:
+                mensagens.append(f"Jogador {jogador1.nome} tentou se curar, mas não tem poções!")
         else:
             mensagens.append(f"Ação inválida. Jogador {jogador1.nome} perdeu a vez!")
 
@@ -392,11 +403,22 @@ def PVP(jogador1, jogador2):
                     dano = jogador2.dano * jogador1.classe.block
                     jogador1.classe.vida -= dano
                     mensagens.append(f"Jogador {jogador1.nome} defendeu! Dano reduzido para {dano:.1f}")
+                elif acao1 == 4: # Ataque com cura jogador 1
+                    dano = jogador2.dano * 2
+                    jogador1.classe.vida -= dano
+                    mensagens.append(f"Jogador {jogador1.nome} tentou usar pot, mas foi atingido em cheio! Sofreu {dano} de dano.")
                 else:
                     jogador1.classe.vida -= jogador2.dano
                     mensagens.append(f"Jogador {jogador1.nome} foi atingido! Sofreu {jogador2.dano} de dano.")
             else:
                 mensagens.append(f"Jogador {jogador2.nome} tentou atacar, mas está sem munição!")
+        elif acao2 == 4:  # Cura jogador 2
+            if jogador2.pot > 0:
+                jogador2.pot -= 1
+                jogador2.classe.vida += mapa_itens[7].modificador
+                mensagens.append(f"Jogador {jogador2.nome} usou uma poção e recuperou {mapa_itens[7].modificador} de vida!")
+            else:
+                mensagens.append(f"Jogador {jogador2.nome} tentou se curar, mas não tem poções!")
         else:
             mensagens.append(f"Ação inválida. Jogador {jogador2.nome} perdeu a vez!")
 

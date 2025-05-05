@@ -3,12 +3,12 @@ Bem vindo jogador, segue algumas informações do jogo:
 
 Você, audaz aventureiro, acaba de pisar na lendária cidade de PIR! Uma metrópole de esplendor inigualável, onde a glória e a fama se entrelaçam. Suas ruas ecoam com os ecos de antigas conquistas, e cada esquina sussurra segredos de feitos heroicos e riquezas imensuráveis. Aqui, o destino dos mais corajosos é forjado nas labaredas da ambição e do poder. PIR, com sua imponente arquitetura de mármore e ferro, não é apenas uma cidade, mas um império de oportunidades, onde o ouro reluz em cada mercado e as lendas são escritas a cada amanhecer. E é claro, não poderia faltar sua arena de batalha, o palco onde guerreiros de todo o mundo vêm testar sua força, coragem e honra. Um lugar onde sangue, suor e glória se misturam em um espetáculo de tirar o fôlego. Prepare-se, aventureiro, pois em PIR, o destino é tão grandioso quanto a própria cidade!
 
-inicia o jogo com 4 turnos diarios,onde, cada passagem, reduz em um seu contador de turno.
+inicia o jogo com 4 turnos diarios,onde, cada passagem, reduz em 1 seu contador de turno.
 Os turnos dos dias podem ser gastos com:
 
 Ferreiro = Compra de equipamentos para aumentar vida e/ou dano
-Loja do Mago = Possibildiade de dar upgrade em uma skill relacionada a sua classe ou adquerir clarividencia(Possibilita ver status do adversario PVP)
-Black Market = Participar em lutas clandestinas para dobrar suas moedas, comprar poções proibidas de heal ou carga para as lutas PVP
+Loja do Mago = Possibildiade de dar upgrade em uma skill relacionada a sua classe ou adquerir clarividencia(Habilidade de ver status do adversario PVP)
+Black Market = Participar em lutas clandestinas para dobrar suas moedas, comprar poções proibidas de heal ou recarga para as lutas PVP
 Guilda = Para obter moedas com até 3 missões diárias
 Ao finalizar os turnos do dia você sera transportado automaticamente para arena PVP.
 As batalhas realizadas na arena são brincadeira de pistoleiro infantil "carrega, defende, atira", onde:
@@ -16,6 +16,7 @@ As batalhas realizadas na arena são brincadeira de pistoleiro infantil "carrega
 Carrega = Gera uma carga de ataque relacionado a sua classe
 Defende = Bloqueia parcialmente dano de um possivel ataque (se utilizado no carregamento inimigo não gera nada)
 Ataque = Gasta uma carga de ataque e realiza ação de ataque (dano pode ser alterado ao passar dos turnos dos dias)
+Cura = Se possuir poções, jogador consome uma para restaurar 5 pontos de vida. No entanto, fica vulnerável durante o uso, se for atacado nesse turno, receberá dano em dobro.
 Vence a partida jogador que permanecer vivo (vida > 0) no final.
 
 Para planos futuros, serão realizados atualizações para passagem de dias após vitorias, aumentando nivel do jogador e criação de placar de jogadores.
@@ -28,23 +29,23 @@ VIDA = 3  / VIDA = 4    / VIDA = 5   /
 MANA = 2 / FLECHA = 1  / KI = 0     /
 
 # Turno da vila
-Ferreiro-> 1 / Loja de Magia-> 2 / Black Market-> 3 / Guilda-> 4 / 
-Checar status-> 5 / Info de PIR-> 0  / 
+1 -> Ferreiro / 2 -> Loja de Magia / 3 -> Black Market / 4 -> Guilda / 
+5 -> Checar status / 0 -> Info de PIR  / 
 
 # Ferreiro Rafael 
 (Rafael): Bem vindo a minha forja viajante!
 Aqui você encontra as melhores armaduras(+vida) e armas(+dano) da região.
 Catalogo: Tipo     /   Atributo    /    Custo
 1-> Cota de Malha       +1 Vida         1 Moeda
-2-> Peitoral de Aço     +2 Vida         2 Moedas
-3-> Armadura Imperial   +3 Vida         3 Moedas
-4-> Espada Curta        +1 dano         1 Moeda
-5-> Espada Longa        +2 dano         2 Moedas
-6-> Machado de Batalha  +3 dano         3 Moedas
+2-> Capacete de Aço     +2 Vida         2 Moedas
+3-> Peitoral Daedra     +3 Vida         3 Moedas
+4-> Adaga de Ferro      +2 dano         2 Moeda
+5-> Anel da Destruição  +3 dano         3 Moedas
+6-> Machado de Batalha  +4 dano         4 Moedas
 0-> Voltar ao centro da vila
 
 # Mago Pizzoni
-(Pizzoni): Bem vindo a minha loja garfanhoto!
+(Archmago Pizzoni): Bem vindo a minha loja garfanhoto!
 Classe (Mago) = Magic barrier: Block 100% 
 Classe (Lutador) = Bersek: Vida * 2 
 Classe (Arqueiro) = Aljava encantada: Municao * 2
@@ -53,14 +54,14 @@ Classe (Arqueiro) = Aljava encantada: Municao * 2
 0-> Voltar ao centro da vila
 
 # Mercadinho do 2k
-(2k): Te liga perdido!
+(Sayajin 2k): Te liga perdido!
 1-> Se quiser lutar no club da luta(Perca 2 de vida por 2x Moedas)
 2-> 2 Moeda: Comprar poção de cura(Cura 1 de vida na batalha)
 3-> 3 Moedas: Pack de 2 munições, referente a sua classe
 0-> Voltar ao centro da vila
 
 # Mestre da Guilda Gabriel
-(Gabriel): Bem vindo, você está no hall da Wenningkamp!
+(Sir.Gabriel): Bem vindo, você está no hall da Wenningkamp!
 Missão no quadro de missões: 
 1-> Missão  = Resgatar gato da rainha: 3 Moedas
 2-> Missão  = Caçar coelho pro chefe: 3 Moedas
