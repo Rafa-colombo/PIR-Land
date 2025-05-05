@@ -91,7 +91,12 @@ def cadastrar_jogador() -> player:
 def status(player):
     jogador = player
     print(f"--- STATUS -> {jogador.nome}\nVida = {jogador.classe.vida} / Armamento = {jogador.classe.municao} / Moedas {jogador.moedas}")
-    print(f"CLASSE = {jogador.classe.nome} / Dano de ataque = {jogador.dano}\nINV:Pot {jogador.pot} + {jogador.inv}\n------------------")
+    print(f"CLASSE = {jogador.classe.nome} / Dano de ataque = {jogador.dano}\nINV:Pot {jogador.pot} + {jogador.inv}")
+    if jogador.flag_mago_skill: 
+        if jogador.classe.nome == "Mago": msg = "Magic barrier: Block 100%"
+        elif jogador.classe.nome == "Arqueiro": msg = "Aljava encantada: Municao * 2"
+        else: msg = "Bersek: Vida * 2" 
+        print(f"Habilidade adquirida-> {msg}\n------------------")
 
 
 
@@ -322,8 +327,8 @@ def PVP(jogador1, jogador2):
     batalha = True
     while batalha:
         # status
-        status1 = f"--- STATUS ->Vida: {jogador1.classe.vida} Munição: {jogador1.classe.municao} Pot({jogador1.pot})\n"
-        status2 = f"--- STATUS ->Vida: {jogador2.classe.vida} Munição: {jogador2.classe.municao} Pot({jogador2.pot})\n"
+        status1 = f"\n--- STATUS ->{jogador1.nome} Vida: {jogador1.classe.vida} Munição: {jogador1.classe.municao} Pot({jogador1.pot})"
+        status2 = f"\n--- STATUS ->{jogador2.nome} Vida: {jogador2.classe.vida} Munição: {jogador2.classe.municao} Pot({jogador2.pot})"
 
         jogador1.socket.send(status1.encode('utf-8'))
         jogador2.socket.send(status2.encode('utf-8'))
