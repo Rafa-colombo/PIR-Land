@@ -202,9 +202,9 @@ def mago(jogador):
             os.system('cls') 
             return
         elif compra == 1:
-            if jogador.flag_mago_clarividencia == 1: print("Você já possui essa habilidade")
+            if jogador.flag_mago_clarividencia: print("Você já possui essa habilidade")
             else: 
-                jogador.flag_mago_clarividencia = 1
+                jogador.flag_mago_clarividencia = True
                 print(f"Acaba de adquirir pergaminho da clarividencia, use com sabedoria {jogador.nome}")
             input("\nPressione ENTER para continuar...")
             os.system('cls')
@@ -289,8 +289,8 @@ def B_Market(jogador):
             return
         elif compra == 1:
             if jogador.classe.vida > 2:
-                jogador.moedas = jogador.moedas * 2
-                jogador.classe.vida = jogador.classe.vida - 2
+                jogador.moedas *= 2
+                jogador.classe.vida -= 2
                 print(f"\nApós uma ardua batalha, {jogador.nome} ganhou 2x sua aposta\nVida restante = {jogador.classe.vida}")
             else: print("Você não possui vida suficiente ladrão")
             input("\nPressione ENTER para continuar...")
@@ -301,8 +301,8 @@ def B_Market(jogador):
             input("\nPressione ENTER para continuar...")
             os.system('cls')
         elif compra == 3:
-            print(f"\nVocê comprou munição (+2) para {jogador.classe}\nMunição: {jogador.classe.municao}")
             jogador.classe.municao += 2
+            print(f"\nVocê comprou munição (+2) para {jogador.classe}\nMunição: {jogador.classe.municao}")
             input("\nPressione ENTER para continuar...")
             os.system('cls')
         else:
@@ -328,7 +328,11 @@ def PVP(jogador1, jogador2):
         jogador1.socket.send(status1.encode('utf-8'))
         jogador2.socket.send(status2.encode('utf-8'))
 
-        # criar if para habilidade clarividencia
+        # Clarividencia
+        if jogador1.flag_mago_clarividencia:
+            jogador1.socket.send(status2.encode('utf-8'))
+        if jogador2.flag_mago_clarividencia:
+            jogador2.socket.send(status1.encode('utf-8'))
 
         # Recebendo ações dos jogadores
         jogador1.socket.send(b"Sua vez! Digite sua jogada: ")
