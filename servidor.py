@@ -8,6 +8,7 @@ socket_conexao.listen(2)
 print("Servidor criado\nAguardando conexões...")
 jogadores = []
 
+
 try:
     # conexão jogadores
     while len(jogadores) < 2:
@@ -46,7 +47,6 @@ try:
 
 except KeyboardInterrupt:
     print("\nServidor encerrado pelo usuário.")
-    socket_conexao.close()
 finally:
     # Garantir que o servidor feche todos os sockets corretamente
     print("Fechando servidor e sockets.")

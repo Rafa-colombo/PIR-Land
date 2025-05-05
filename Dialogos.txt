@@ -28,8 +28,8 @@ VIDA = 3  / VIDA = 4    / VIDA = 5   /
 MANA = 2 / FLECHA = 1  / KI = 0     /
 
 # Turno da vila
-Ferreiro->1 / Loja de Magia->2 / Black Market->3 / Guilda-> 4 / Checar status->5
-Info de PIR-> 0  / 
+Ferreiro-> 1 / Loja de Magia-> 2 / Black Market-> 3 / Guilda-> 4 / 
+Checar status-> 5 / Info de PIR-> 0  / 
 
 # Ferreiro Rafael 
 (Rafael): Bem vindo a minha forja viajante!
@@ -48,16 +48,16 @@ Catalogo: Tipo     /   Atributo    /    Custo
 Classe (Mago) = Magic barrier: Block 100% 
 Classe (Lutador) = Bersek: Vida * 2 
 Classe (Arqueiro) = Aljava encantada: Municao * 2
-10 Moedas: Pergaminho da clarividencia (permite ao jogador ver o status de seu adversario no PVP)->1
-5 Moedas: Upgrade da skill referente a sua classe->2
-Voltar ao centro da vila->0
+1-> 10 Moedas: Pergaminho da clarividencia (permite ao jogador ver o status de seu adversario no PVP)
+2-> 5 Moedas: Upgrade da skill referente a sua classe
+0-> Voltar ao centro da vila
 
 # Mercadinho do 2k
 (2k): Te liga perdido!
-Se quiser lutar no club da luta(Perca 2 de vida por 2x Moedas)->1
-2 Moeda: Comprar poção de cura(Cura 1 de vida na batalha)->2
-3 Moedas: Pack de 2 munições, referente a sua classe->3
-Voltar ao centro da vila->0
+1-> Se quiser lutar no club da luta(Perca 2 de vida por 2x Moedas)
+2-> 2 Moeda: Comprar poção de cura(Cura 1 de vida na batalha)
+3-> 3 Moedas: Pack de 2 munições, referente a sua classe
+0-> Voltar ao centro da vila
 
 # Mestre da Guilda Gabriel
 (Gabriel): Bem vindo, você está no hall da Wenningkamp!

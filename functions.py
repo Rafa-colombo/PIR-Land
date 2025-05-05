@@ -1,4 +1,5 @@
 import os
+import sys
 import socket
 import pickle
 from dataclasses import dataclass
@@ -30,7 +31,7 @@ class itens:
 class classe:
     nome : str
     vida: int 
-    municao: int  # mago mana, pistoleiro municao
+    municao: int  # mago mana, pistoleiro municao, lutador ki
     block: int
 
 @dataclass
@@ -99,13 +100,21 @@ def status(player):
         print(f"Habilidade adquirida-> {msg}\n------------------")
 
 
+def recurso_path(nome_arquivo):
+    if getattr(sys, 'frozen', False):
+        # Se estiver rodando como executável
+        base_path = sys._MEIPASS
+    else:
+        # Rodando como script normal
+        base_path = os.path.dirname(__file__)
+    return os.path.join(base_path, nome_arquivo)
 
 # Ler txt dialogo
 def ler_dialogo(inicio,fim):
-    inicio = inicio - 1 
-    fim = fim   
+    inicio -= 1 
+    caminho = recurso_path("Dialogos.txt")   
 
-    with open("Dialogos.txt", "r", encoding="utf-8") as arquivo:
+    with open(caminho, "r", encoding="utf-8") as arquivo:
         linhas = arquivo.readlines()
         for i in range(inicio, fim):
             if i < len(linhas):  
@@ -209,8 +218,10 @@ def mago(jogador):
         elif compra == 1:
             if jogador.flag_mago_clarividencia: print("Você já possui essa habilidade")
             else: 
-                jogador.flag_mago_clarividencia = True
-                print(f"Acaba de adquirir pergaminho da clarividencia, use com sabedoria {jogador.nome}")
+                if jogador.moedas < 10: print("Não possui moedas suficientes")
+                else:
+                    jogador.flag_mago_clarividencia = True
+                    print(f"Acaba de adquirir pergaminho da clarividencia, use com sabedoria {jogador.nome}")
             input("\nPressione ENTER para continuar...")
             os.system('cls')
         elif compra == 2:
@@ -306,10 +317,13 @@ def B_Market(jogador):
             input("\nPressione ENTER para continuar...")
             os.system('cls')
         elif compra == 3:
-            jogador.classe.municao += 2
-            print(f"\nVocê comprou munição (+2) para {jogador.classe}\nMunição: {jogador.classe.municao}")
-            input("\nPressione ENTER para continuar...")
-            os.system('cls')
+            if jogador.moedas < 3: print("Não possui moedas suficientes")
+            else:
+                jogador.moedas -= 3
+                jogador.classe.municao += 2
+                print(f"\nVocê comprou munição (+2) para {jogador.classe}\nMunição: {jogador.classe.municao}")
+                input("\nPressione ENTER para continuar...")
+                os.system('cls')
         else:
             print(compra)
             print("Item inválido.")
