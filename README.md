@@ -82,7 +82,7 @@ Abra pelo menos duas instâncias do client.py para testar o combate PVP na Arena
 <div align="center">
 <em>"Um lugar onde sangue, suor e glória se misturam em um espetáculo de tirar o fôlego."</em>
 </div>
------
+
 
 ``
 ### 💡 Dicas para quando você for colocar imagens nesse:
