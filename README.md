@@ -72,7 +72,7 @@ python client.py
 ```
 Abra pelo menos duas instâncias do client.py para testar o combate PVP na Arena!
 
-##🔮 Atualizações Futuras (Roadmap)
+## 🔮 Atualizações Futuras (Roadmap)   
 [ ] Implementar passagem de dias contínua após as vitórias na arena.
 
 [ ] Sistema de experiência (XP) e nivelamento do jogador.
@@ -84,14 +84,3 @@ Abra pelo menos duas instâncias do client.py para testar o combate PVP na Arena
 </div>
 
 
-``
-### 💡 Dicas para quando você for colocar imagens nesse:
-
-Como esse jogo provavelmente roda direto no terminal (CMD/PowerShell), prints de tela bonitos do terminal escuro com os textos de combate (`Dialogos.txt`) dariam um charme muito legal\! Quando você conseguir rodar, recomendo tirar:
-
-1.  Um print da tela do **Servidor** aguardando conexões.
-2.  Um print do **Cliente** navegando pelas lojinhas.
-3.  Um GIF do momento do **Combate na Arena**.
-
-O que achou dessa estrutura? Ficou com a pegada de um RPG clássico misturado com a parte técnica de redes\!
-``
