@@ -7,9 +7,6 @@
 ## 📖 Sobre o Projeto
 **PIR-Land** é um jogo RPG multiplayer com foco em gerenciamento de recursos e combates PVP (Player vs Player). Desenvolvido como projeto prático para a disciplina de Redes 1, o jogo utiliza uma arquitetura **Cliente-Servidor** para conectar os jogadores em uma arena de batalha simultânea.
 
-### 📜 A Lore: A Cidade de PIR
-Você, audaz aventureiro, acaba de pisar na lendária cidade de PIR! Uma metrópole de esplendor inigualável, de arquitetura imponente em mármore e ferro. Em PIR, o destino dos mais corajosos é forjado nas labaredas da ambição e do poder. Guerreiros de todo o mundo vêm testar sua força, coragem e honra na grande Arena de Batalha. Prepare-se, pois aqui o seu destino é tão grandioso quanto a própria cidade!
-
 ---
 
 ## 🎮 Como Funciona o Jogo (Gameplay)
@@ -79,8 +76,16 @@ Abra pelo menos duas instâncias do client.py para testar o combate PVP na Arena
 
 [ ] Criação de um Placar Global (Leaderboard) ranqueando os melhores guerreiros de PIR.
 
+
+### 📜 A Lore: A Cidade de PIR
+Você, audaz aventureiro, acaba de pisar na lendária cidade de PIR!
+Uma metrópole de esplendor inigualável, onde a glória e a fama se entrelaçam. Suas ruas ecoam com os ecos de antigas conquistas, e cada esquina sussurra segredos de feitos heroicos e riquezas imensuráveis. Aqui, o destino dos mais corajosos é forjado nas labaredas da ambição e do poder.
+PIR, com sua imponente arquitetura de mármore e ferro, não é apenas uma cidade, mas um império de oportunidades, onde o ouro reluz em cada mercado e as lendas são escritas a cada amanhecer. E é claro, não poderia faltar sua arena de batalha, o palco onde guerreiros de todo o mundo vêm testar sua força, coragem e honra. Um lugar onde sangue, suor e glória se misturam em um espetáculo de tirar o fôlego.
+Prepare-se, aventureiro, pois em PIR, o destino é tão grandioso quanto a própria cidade!
+
+
 <div align="center">
-<em>"Um lugar onde sangue, suor e glória se misturam em um espetáculo de tirar o fôlego."</em>
+      <em>"Um lugar onde sangue, suor e glória se misturam em um espetáculo de tirar o fôlego."</em>
 </div>
 
 
