@@ -69,6 +69,8 @@ python client.py
 ```
 Abra pelo menos duas instâncias do client.py para testar o combate PVP na Arena!
 
+---
+
 ## 🔮 Atualizações Futuras (Roadmap)   
 [ ] Implementar passagem de dias contínua após as vitórias na arena.
 
@@ -76,6 +78,7 @@ Abra pelo menos duas instâncias do client.py para testar o combate PVP na Arena
 
 [ ] Criação de um Placar Global (Leaderboard) ranqueando os melhores guerreiros de PIR.
 
+---
 
 ### 📜 A Lore: A Cidade de PIR
 Você, audaz aventureiro, acaba de pisar na lendária cidade de PIR!
